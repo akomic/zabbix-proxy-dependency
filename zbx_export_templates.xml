@@ -25,8 +25,8 @@
                     <multiplier>0</multiplier>
                     <snmp_oid/>
                     <key>proxy_check.py[&quot;--hostname&quot;,{HOST.HOST},&quot;--username&quot;,{$ZABBIX_USER},&quot;--password&quot;,{$ZABBIX_PASS}]</key>
-                    <delay>60</delay>
-                    <history>90</history>
+                    <delay>120</delay>
+                    <history>5</history>
                     <trends>365</trends>
                     <status>0</status>
                     <value_type>3</value_type>
