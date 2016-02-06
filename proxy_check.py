@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 """
-This program takes as required input zabbix hostid and returns the health status of the zabbix proxy if the host is using it.
+This program takes as required input zabbix hostname and returns the health status of the zabbix proxy if the host is using it.
 If there is no proxy for the specified host, 1 (available) is going to be returned.
 Idea is to have something the host can depend on if the zabbix proxy goes down in order to avoid avalanche of alerts.
 For this to work, you need to have zabbix agent installed on the zabbix proxy machine and added as regular host for monitoring.
@@ -14,7 +14,7 @@ __version__ = "1.0"
 import argparse
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--hostid",help="Host ID", type=int, required=True)
+parser.add_argument("--hostname",help="Host Name as defined in zabbix", required=True)
 parser.add_argument("--username",help="Zabbix Username")
 parser.add_argument("--password",help="Zabbix Password")
 parser.add_argument("--verbose",help="Up the verbosity, for debugging purposes", action="count")
@@ -48,10 +48,10 @@ else:
   # Default is to return 1 (available), even if zabbix proxy does not exist for the specified host.
   proxy_dep_alive=1
 
-  # Looking for host with given hostid
-  for host in zapi.host.get(hostids=[args.hostid], output="extend", limit=1):
+  # Looking for host with given hostname
+  for host in zapi.host.get(filter={"host": args.hostname}, output="extend", limit=1):
     if args.verbose:
-      print "Checking host id:",args.hostid,"host:",host['host']
+      print "Checking host name:",args.hostname,"host id:",host['hostid']
     # Is there zabbix proxy this host is using?
     if host['proxy_hostid']:
       # Getting the proxy hostname
