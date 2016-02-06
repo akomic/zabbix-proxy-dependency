@@ -64,8 +64,8 @@
                     <value></value>
                 </macro>
                 <macro>
-                    <macro></macro>
-                    <value>apiman</value>
+                    <macro>{$ZABBIX_USER}</macro>
+                    <value></value>
                 </macro>
             </macros>
             <templates/>
