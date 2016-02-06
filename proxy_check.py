@@ -34,14 +34,9 @@ zpass = ( args.password or os.getenv('ZABBIX_PASS') )
 if not zuser or not zpass:
   print "You must specify zabbix username and password via cli or ENV"
   sys.exit(1)
-  
+
 try:
   zapi.login(zuser,zpass)
-except requests.exceptions.HTTPError as e:
-  print "ERROR login to zabbix API:", str(e)
-except pyzabbix.ZabbixAPIException as e:
-  print "ERROR login to zabbix API:", str(e)
-else:
   if args.verbose:
     print "Connected to Zabbix API Version %s" % zapi.api_version()
 
@@ -63,7 +58,14 @@ else:
         for proxyhost in zapi.host.get(filter={"host": proxy['host']}, output="extend", limit=1):
           if not proxyhost.get('available'):
             proxy_dep_alive=0
-
   if args.verbose:
     print "Proxy availability status:",
   print proxy_dep_alive
+
+except requests.exceptions.HTTPError as e:
+  print "ERROR login to zabbix API:", str(e)
+except pyzabbix.ZabbixAPIException as e:
+  print "API Error:", str(e)
+except Exception as e:
+  print "ERROR: %s" % str(e)
+

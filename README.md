@@ -5,7 +5,14 @@ If there is no proxy for the specified host, 1 (available) is going to be return
 Idea is to have something the host can depend on if the zabbix proxy goes down in order to avoid avalanche of alerts.
 For this to work, you need to have zabbix agent installed on the zabbix proxy machine and added as regular host for monitoring.
 
+Tested with Zabbix 2.2
+
 ## Installation
+
+pyzabbix is required
+```
+$ pip install pyzabbix
+```
 
 Download to zabbix server
 ``` 
