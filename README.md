@@ -7,7 +7,7 @@ For this to work, you need to have zabbix agent installed on the zabbix proxy ma
 
 ## Installation
 
-Download the script to zabbix server
+Download to zabbix server
 ``` 
 $ git clone https://github.com/akomic/zabbix-proxy-dependency
 $ cd zabbix-proxy-dependency
@@ -15,7 +15,7 @@ $ cd zabbix-proxy-dependency
 
 Copy script to directory specified in zabbix_server.conf file as ExternalScript=
 ```
-$ cp zabbix_check.py /etc/zabbix/externalscripts
+$ cp zabbix_check.py /etc/zabbix/externalscripts/
 $ chmod 755 /etc/zabbix/externalscripts/zabbix_check.py
 ```
 
@@ -33,5 +33,7 @@ Template is adding item which is indicating availability status of the zabbix pr
 If the zabbix proxy on which is monitored host is depending is not available, item is going to have value of 0. If everything is ok item is going to have value of 1.
 
 - Use added item in creation of active checks to skip sending alerts
+
 or
+
 - Use added item as dependency for hosts availability trigger e.g. Zabbix agent on {HOST.NAME} is unreachable for 5 minutes" in "Template OS Linux"
