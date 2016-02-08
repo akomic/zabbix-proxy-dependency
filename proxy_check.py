@@ -47,9 +47,11 @@ try:
   # Looking for host with given hostname
   for host in zapi.host.get(filter={"host": args.hostname}, output="extend", limit=1):
     if args.verbose:
-      print "Checking host name:",args.hostname,"host id:",host['hostid']
+      print "Checking host name:",args.hostname,"host id:",host['hostid'],"proxyid:",host['proxy_hostid']
+
     # Is there zabbix proxy this host is using?
-    if host['proxy_hostid']:
+    if host['proxy_hostid']!="0":
+
       # Getting the proxy hostname
       for proxy in zapi.proxy.get(proxyids=[host['proxy_hostid']], output="extend", limit=1):
         if args.verbose:
@@ -59,6 +61,9 @@ try:
         for proxyhost in zapi.host.get(filter={"host": proxy['host']}, output="extend", limit=1):
           if not proxyhost.get('available'):
             proxy_dep_alive=0
+    elif args.verbose:
+      print "Host",args.hostname,"is not going through proxy"
+
   if args.verbose:
     print "Proxy availability status:",
   print proxy_dep_alive
