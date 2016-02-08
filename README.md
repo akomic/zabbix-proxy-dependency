@@ -32,7 +32,7 @@ $ chmod 755 /etc/zabbix/externalscripts/zabbix_check.py
 
 - Import template zbx_export_templates.xml
 
-- Edit macros for the template and specify username and password of previously created user as {$ZABBIX_USER} and {$ZABBIX_PASS}
+- Edit macros for the template and specify apihost ({$ZABBIX_API}) as URL on which we can communicate with zabbix frontend, username and password of previously created user as {$ZABBIX_USER} and {$ZABBIX_PASS}
 
 - Add template to host that is receiving data through zabbix proxy.
 

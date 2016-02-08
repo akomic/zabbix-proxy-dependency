@@ -15,6 +15,7 @@ import argparse
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--hostname",help="Host Name as defined in zabbix", required=True)
+parser.add_argument("--apihost",help="Zabbix API URL")
 parser.add_argument("--username",help="Zabbix Username")
 parser.add_argument("--password",help="Zabbix Password")
 parser.add_argument("--verbose",help="Up the verbosity, for debugging purposes", action="count")
@@ -25,17 +26,17 @@ import sys
 import pyzabbix
 import requests
 
-zapi = pyzabbix.ZabbixAPI("http://localhost/zabbix")
-
 
 zuser = ( args.username or os.getenv('ZABBIX_USER') )
 zpass = ( args.password or os.getenv('ZABBIX_PASS') )
+apihost = ( args.apihost or os.getenv('ZABBIX_API') )
 
 if not zuser or not zpass:
-  print "You must specify zabbix username and password via cli or ENV"
+  print "You must specify zabbix apihost, username, password via cli or ENV"
   sys.exit(1)
-
 try:
+  zapi = pyzabbix.ZabbixAPI(apihost)
+
   zapi.login(zuser,zpass)
   if args.verbose:
     print "Connected to Zabbix API Version %s" % zapi.api_version()

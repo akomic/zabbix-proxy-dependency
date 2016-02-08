@@ -60,6 +60,10 @@
             <discovery_rules/>
             <macros>
                 <macro>
+                    <macro>{$ZABBIX_API}</macro>
+                    <value>http://localhost/zabbix</value>
+                </macro>
+                <macro>
                     <macro>{$ZABBIX_PASS}</macro>
                     <value></value>
                 </macro>
